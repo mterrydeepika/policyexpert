@@ -8,5 +8,5 @@ metadata:
   name: java-technical-assignment
 spec:
   lifecycle: production
-  owner: core-2
+  owner: acquisition
   type: misc
