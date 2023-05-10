@@ -14,6 +14,7 @@ public class Basket {
     }
 
     public void add(final Item item) {
+        item.belongsToBasket(this);
         this.items.add(item);
     }
 
@@ -47,7 +48,16 @@ public class Basket {
          *  which provides that functionality.
          */
         private BigDecimal discounts() {
-            return BigDecimal.ZERO;
+            BigDecimal discount = items.stream().map(i-> i.calculateDiscount(Basket.this)).reduce(BigDecimal::add)
+                    .orElse(BigDecimal.ZERO).setScale(2,RoundingMode.HALF_UP);
+            /*items.forEach(item-> {
+                        if (item instanceof ItemByUnit && item.getOffersAvailable()
+                                .buyOneGetOneFree(item.price()).equals(item.price())) {
+                            items.add(item);
+                        }
+                    }
+            );*/
+            return discount;
         }
 
         private BigDecimal calculate() {
