@@ -34,7 +34,5 @@ public class Product {
     public long getProductId() {
         return productId;
     }
-    public String getOfferName() {
-        return offerName;
-    }
+
 }

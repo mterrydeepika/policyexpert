@@ -41,10 +41,6 @@ public class ItemByUnit implements Item {
         return discount[0];
     }
 
-    public OffersAvailable getOffersAvailable() {
-        return offersAvailable;
-    }
-
     public void belongsToBasket(Basket basket) {
         this.basket = basket;
     }

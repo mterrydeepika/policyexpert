@@ -7,7 +7,5 @@ public interface Item {
 
     BigDecimal calculateDiscount(Basket basket);
 
-    OffersAvailable getOffersAvailable();
-
     void belongsToBasket(Basket basket);
 }

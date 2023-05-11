@@ -29,11 +29,6 @@ public class ItemByWeight implements Item {
     }
 
     @Override
-    public OffersAvailable getOffersAvailable() {
-        return offersAvailable;
-    }
-
-    @Override
     public void belongsToBasket(Basket basket) {
         basket = this.basket;
     }
