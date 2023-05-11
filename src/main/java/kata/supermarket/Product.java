@@ -2,7 +2,6 @@ package kata.supermarket;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Product {
@@ -18,6 +17,7 @@ public class Product {
         this.pricePerUnit = pricePerUnit;
         this.offersAvailable = new OffersAvailable();
         this.productId = productId;
+        this.offerName = offerName;
         offers = new ArrayList<String>();
         offers.add("none");
         offers.add("buyOneGetOneFree");
@@ -33,5 +33,8 @@ public class Product {
     }
     public long getProductId() {
         return productId;
+    }
+    public String getOfferName() {
+        return offerName;
     }
 }

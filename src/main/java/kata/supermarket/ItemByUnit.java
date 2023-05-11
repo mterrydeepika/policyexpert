@@ -8,6 +8,8 @@ public class ItemByUnit implements Item {
     private final String offerName;
     private Basket basket;
 
+    private BigDecimal discountAmount;
+
     public ItemByUnit(final Product product, OffersAvailable offersAvailable, String offerName) {
         this.product = product;
         this.offersAvailable = offersAvailable;
@@ -19,20 +21,27 @@ public class ItemByUnit implements Item {
     }
 
     public BigDecimal calculateDiscount(Basket basket) {
-        if (offersAvailable == null) {
-            return  BigDecimal.ZERO;
-        }
-        product.offers.stream().map(offer -> {
-            if(offer.equalsIgnoreCase(offerName)
-                    && offer.equalsIgnoreCase("buyOneGetOneFree"))
-                return offersAvailable.buyOneGetOneFree(product.pricePerUnit(), product.getProductId(), basket, this);
-            else if (offer.equalsIgnoreCase(offerName)
-                    && offer.equalsIgnoreCase("buyThreeItemsForThePriceOfTwo"))
-            return offersAvailable.buyThreeItemsForThePriceOfTwo(product.pricePerUnit(), basket, this);
-            else return BigDecimal.ZERO;
+        BigDecimal[] discount = new BigDecimal[1];
+        if (offersAvailable == null)
+            discount[0] = BigDecimal.ZERO;
+
+        product.offers.forEach(offer -> {
+            switch(offerName.toLowerCase()) {
+                case "buyonegetonefree" :
+                    discount[0] = offersAvailable.buyOneGetOneFree(product.pricePerUnit(), product.getProductId(),
+                            basket, this);
+                    break;
+                case "buythreeitemsforthepriceoftwo" :
+                    discount[0] = offersAvailable.buyThreeItemsForThePriceOfTwo(product.pricePerUnit(),
+                            basket, this);
+                    break;
+                    default :
+                        discount[0] = BigDecimal.ZERO;
+            }
         });
 
-        return BigDecimal.ZERO;
+        discountAmount = discount[0];
+        return discount[0];
     }
 
     public OffersAvailable getOffersAvailable() {
@@ -44,5 +53,8 @@ public class ItemByUnit implements Item {
     }
     public Product getProduct() {
         return product;
+    }
+    public BigDecimal getDiscountAmount() {
+        return discountAmount;
     }
 }

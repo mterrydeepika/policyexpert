@@ -9,5 +9,7 @@ public interface Item {
 
     OffersAvailable getOffersAvailable();
 
+    BigDecimal getDiscountAmount();
+
     void belongsToBasket(Basket basket);
 }

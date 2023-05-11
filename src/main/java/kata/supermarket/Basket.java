@@ -9,6 +9,10 @@ import java.util.List;
 public class Basket {
     private final List<Item> items;
 
+    boolean itemToBeAddedFlag;
+
+    private Item itemToBeAdded;
+
     public Basket() {
         this.items = new ArrayList<>();
     }
@@ -24,6 +28,25 @@ public class Basket {
 
     public BigDecimal total() {
         return new TotalCalculator().calculate();
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItemToBeAddedFlag(boolean itemToBeAddedFlag) {
+        this.itemToBeAddedFlag = itemToBeAddedFlag;
+    }
+
+    public boolean isItemToBeAddedFlag() {
+        return itemToBeAddedFlag;
+    }
+
+    public void setItemToBeAdded(Item itemToBeAdded) {
+        this.itemToBeAdded = itemToBeAdded;
+    }
+    public Item getItemToBeAdded() {
+        return itemToBeAdded;
     }
 
     private class TotalCalculator {
@@ -50,13 +73,9 @@ public class Basket {
         private BigDecimal discounts() {
             BigDecimal discount = items.stream().map(i-> i.calculateDiscount(Basket.this)).reduce(BigDecimal::add)
                     .orElse(BigDecimal.ZERO).setScale(2,RoundingMode.HALF_UP);
-            /*items.forEach(item-> {
-                        if (item instanceof ItemByUnit && item.getOffersAvailable()
-                                .buyOneGetOneFree(item.price()).equals(item.price())) {
-                            items.add(item);
-                        }
-                    }
-            );*/
+
+            if(Basket.this.isItemToBeAddedFlag())
+                Basket.this.add(Basket.this.getItemToBeAdded());
             return discount;
         }
 

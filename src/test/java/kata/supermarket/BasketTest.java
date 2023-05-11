@@ -27,9 +27,10 @@ class BasketTest {
         return Stream.of(
                 noItems(),
                 aSingleItemPricedPerUnit(),
-                multipleItemsPricedPerUnit(),
+                multipleItemsPricedPerUnitWithoutOffer(),
                 aSingleItemPricedByWeight(),
                 multipleItemsPricedByWeight(),
+                multipleItemsPricedPerUnitWithAnOffer(),
                 twoItemsPricedPerUnit_withBuyOneGetOneFreeOffer()
         );
     }
@@ -44,9 +45,14 @@ class BasketTest {
         );
     }
 
-    private static Arguments multipleItemsPricedPerUnit() {
+    private static Arguments multipleItemsPricedPerUnitWithoutOffer() {
         return Arguments.of("multiple items priced per unit", "2.04",
-                Arrays.asList(aPackOfDigestives(), aPintOfMilk()));
+                Arrays.asList(aPackOfDigestivesWithoutOffer(), aPintOfMilk()));
+    }
+
+    private static Arguments multipleItemsPricedPerUnitWithAnOffer() {
+        return Arguments.of("multiple items priced per unit with an offer", "2.04",
+                Arrays.asList(aPackOfDigestivesWithOffer(), aPintOfMilk()));
     }
 
     private static Arguments aSingleItemPricedPerUnit() {
@@ -61,7 +67,7 @@ class BasketTest {
         return new Product(new BigDecimal("0.49"), 1, "none").oneOf();
     }
 
-    private static Item aPackOfDigestives() {
+    private static Item aPackOfDigestivesWithOffer() {
         return new Product(new BigDecimal("1.55"), 2, "buyOneGetOneFree").oneOf();
     }
 
@@ -71,12 +77,17 @@ class BasketTest {
 
     private static Arguments twoItemsPricedPerUnit_withBuyOneGetOneFreeOffer() {
         return Arguments.of("two items priced per unit", "1.55",
-                Arrays.asList(aPackOfDigestives(), aPackOfDigestivesWithoutOffer()));
+                Arrays.asList(aPackOfDigestivesWithOffer(), aPackOfDigestivesWithoutOffer()));
     }
 
     private static WeighedProduct aKiloOfAmericanSweets() {
         return new WeighedProduct(new BigDecimal("4.99"));
     }
+
+    /*private static WeighedProduct aKiloOfAmericanSweetsWithOffer() {
+        return new WeighedProduct(new BigDecimal("4.99"));
+    }*/
+
 
     private static Item twoFiftyGramsOfAmericanSweets() {
         return aKiloOfAmericanSweets().weighing(new BigDecimal(".25"));
