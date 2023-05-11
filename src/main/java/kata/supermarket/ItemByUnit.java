@@ -8,8 +8,6 @@ public class ItemByUnit implements Item {
     private final String offerName;
     private Basket basket;
 
-    private BigDecimal discountAmount;
-
     public ItemByUnit(final Product product, OffersAvailable offersAvailable, String offerName) {
         this.product = product;
         this.offersAvailable = offersAvailable;
@@ -40,7 +38,6 @@ public class ItemByUnit implements Item {
             }
         });
 
-        discountAmount = discount[0];
         return discount[0];
     }
 
@@ -53,8 +50,5 @@ public class ItemByUnit implements Item {
     }
     public Product getProduct() {
         return product;
-    }
-    public BigDecimal getDiscountAmount() {
-        return discountAmount;
     }
 }

@@ -13,4 +13,10 @@ class ProductTest {
         final BigDecimal price = new BigDecimal("2.49");
         assertEquals(price, new Product(price, 3, "none").oneOf().price());
     }
+
+    @Test
+    void singleItemWithOfferHasExpectedUnitPriceFromProduct() {
+        final BigDecimal price = new BigDecimal("2.49");
+        assertEquals(price, new Product(price, 2, "buyOneGetOneFree").oneOf().price());
+    }
 }

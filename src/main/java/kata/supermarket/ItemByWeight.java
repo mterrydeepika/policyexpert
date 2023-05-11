@@ -34,11 +34,6 @@ public class ItemByWeight implements Item {
     }
 
     @Override
-    public BigDecimal getDiscountAmount() {
-        return null;
-    }
-
-    @Override
     public void belongsToBasket(Basket basket) {
         basket = this.basket;
     }

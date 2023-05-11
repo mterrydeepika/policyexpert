@@ -31,12 +31,17 @@ class BasketTest {
                 aSingleItemPricedByWeight(),
                 multipleItemsPricedByWeight(),
                 multipleItemsPricedPerUnitWithAnOffer(),
-                twoItemsPricedPerUnit_withBuyOneGetOneFreeOffer()
+                twoItemsPricedPerUnit_withBuyOneGetOneFreeOffer(),
+                aSingleItemPricedByWeightApplicableForOffer()
         );
     }
 
     private static Arguments aSingleItemPricedByWeight() {
         return Arguments.of("a single weighed item", "1.25", Collections.singleton(twoFiftyGramsOfAmericanSweets()));
+    }
+
+    private static Arguments aSingleItemPricedByWeightApplicableForOffer() {
+        return Arguments.of("a single weighed item applicable for offer", "4.99", Collections.singleton(OneAndAHalfKgsOfAmericanSweets()));
     }
 
     private static Arguments multipleItemsPricedByWeight() {
@@ -84,13 +89,12 @@ class BasketTest {
         return new WeighedProduct(new BigDecimal("4.99"));
     }
 
-    /*private static WeighedProduct aKiloOfAmericanSweetsWithOffer() {
-        return new WeighedProduct(new BigDecimal("4.99"));
-    }*/
-
-
     private static Item twoFiftyGramsOfAmericanSweets() {
         return aKiloOfAmericanSweets().weighing(new BigDecimal(".25"));
+    }
+
+    private static Item OneAndAHalfKgsOfAmericanSweets() {
+        return aKiloOfAmericanSweets().weighing(new BigDecimal("1.50"));
     }
 
     private static WeighedProduct aKiloOfPickAndMix() {
